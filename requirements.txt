@@ -1,7 +1,5 @@
 streamlit>=1.35.0
 openai>=1.0.0
-llama-index-core==0.10.48
-llama-index-llms-openai==0.1.22
-llama-index-embeddings-openai==0.1.10
-llama-index-readers-file==0.1.19
+llama-index==0.10.48
 nltk==3.8.1
+# force-rebuild-v2

@@ -9,7 +9,6 @@ st.set_page_config(page_title="Covid19 Safety Plan Chatbot", page_icon="💬")
 st.header("Covid19 Safety Plan Chatbot 💬 🦠 ⛑️")
 
 # --- API Key Configuration ---
-# Safely checks both lowercase and uppercase secret configurations
 openai_api_key = (
     st.secrets.get("openai_key") 
     or st.secrets.get("OPENAI_API_KEY") 
@@ -21,7 +20,7 @@ if not openai_api_key:
 
 openai.api_key = openai_api_key
 
-# --- Configure LlamaIndex Global Settings (Replaces ServiceContext) ---
+# --- Configure LlamaIndex Global Settings ---
 Settings.llm = OpenAI(
     model="gpt-3.5-turbo", 
     temperature=0.5, 
@@ -32,7 +31,6 @@ Settings.llm = OpenAI(
         "Your answers should be based on facts, do not hallucinate features."
     )
 )
-Settings.embed_model = "local:BAAI/bge-small-en-v1.5" # Or default OpenAI embedding
 
 # --- Load Data Cached Resource ---
 @st.cache_resource(show_spinner=False)
@@ -75,7 +73,6 @@ if prompt := st.chat_input("Your question"):
     with st.chat_message("user"):
         st.write(prompt)
 
-# If the last message is from the user, generate the assistant's response
 if st.session_state.messages[-1]["role"] == "user":
     user_query = st.session_state.messages[-1]["content"]
     with st.chat_message("assistant"):
